@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>pathAnimation</title>
+    <style>
+        body {
+            /* background-image: url(../images/background.png); */
+        }
+    </style>
+    <script src="../libs/twaver.js"></script>
+</head>
+
+<body>
+    <div id="networkDiv"></div>
+    <script>
+        var box = new twaver.ElementBox();
+        var network = new twaver.vector.Network(box);
+
+        document.getElementById("networkDiv").appendChild(network.getView());
+        network.adjustBounds({
+            x: 0,
+            y: 0,
+            width: 960,
+            height: 550
+        })
+
+        var node = new twaver.Follower({
+            name: "node",
+            location: {
+                x: 150,
+                y: 250
+            }
+        })
+        node.s('label.color','red');
+        box.add(node);
+
+
+
+
+
+
+
+        var p1 = {
+            x: 550,
+            y: 400
+        };
+
+        var speed = 1;
+
+        var p0 = node.getLocation();
+
+        var animate = new twaver.Animate({
+            to: p1,
+            type: 'point',
+            delay: 1000,
+            dur: speed * 10000,
+            source: node,
+            attr: 'location',
+            easing: 'easeNone',
+            // onUpdate: function (value) {
+            //     node.setLocation(value.x, value.y);
+            // }
+        });
+
+
+
+        var animate1 = new twaver.Animate({
+            source: node,
+            attr: 'location',
+            dur: speed * 1000,
+            to: {
+                x: 100,
+                y: 100
+            },
+            type: 'point',
+            easing: 'easeNode'
+        })
+
+
+        
+        animate.onDone = function () {
+        
+                animate1.play();
+         
+        };
+
+
+
+        animate.play();
+
+    </script>
+</body>
+
+</html>

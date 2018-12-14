@@ -1,0 +1,458 @@
+/* css reset */
+
+// 顶部底线
+$topBorderLine : rgb(52,128,181);
+//左侧导航背景
+$navBackground :rgba(31,75,118,0.2);
+//左侧导航字体、右上角字体颜色
+$navColor : rgb(59, 211, 255);
+//左侧导航边框色
+$navBorderColor : rgb(50, 128, 181);
+//属性面板字体颜色
+$propertyColor : rgb(50, 128, 181);
+//鼠标悬浮背景色
+$hoverBackground : #e5e5e5;
+
+
+html,
+body,
+ul,
+li,
+ol,
+dl,
+dd,
+dt,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+form,
+fieldset,
+img {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	zoom:1
+}
+
+fieldset,
+img {
+	border: none;
+}
+
+ul,
+ol {
+	list-style: none;
+}
+
+input {
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
+input::-moz-focus-inner {
+	border: none;
+	padding: 0;
+}
+
+select,
+input {
+	vertical-align: middle;
+}
+
+select,
+input,
+textarea {
+	font-size: 12px;
+	margin: 0;
+}
+
+input[type="text"],
+input[type="password"],
+textarea {
+	outline-style: none;
+	-webkit-appearance: none;
+}
+
+textarea {
+	resize: none;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+body {
+	padding: 5px 0;
+	font-size: 12px;
+	font-family: Verdana, Helvetica, Calibri, 'Microsoft Yahei', Arial, sans-serif;
+	overflow: hidden;
+}
+
+a {
+	text-decoration: none;
+}
+
+
+a:hover,
+a:active,
+a:focus {
+	text-decoration: underline;
+}
+
+/**** top *****/
+
+#top {
+	border-bottom: 2px solid $topBorderLine;
+	text-align: center;
+	height: 72px;
+	img {
+		margin-left: 10px;
+		vertical-align: middle;
+	}
+
+	.toolbar {
+		position: absolute;
+		top: 30px;
+		right: 0px;
+	}
+
+	.toolbar input {
+		border: none;
+		height: 26px;
+		font-size: 14px;
+		border-radius: 5px;
+		margin-right: 10px
+	}
+	span {
+		font-size: 20px;
+	}
+
+	.mn-toolbar {
+		width: 27px;
+		height: 27px;
+		border-radius: 2px;
+		left: 100px;
+		display: inline-block;
+		float: left;
+	}
+
+	.mn-toolbar:hover {
+		background-color: $hoverBackground;
+		cursor: pointer;
+	}
+
+	.toolbar>.sceneSelect {
+		margin-right: 10px;
+		float: left
+	}
+}
+
+#importVsdx{
+	background-image: url(../images/import.png);
+	margin-right: 85px;
+}
+
+#export{
+	margin-right: 70px;
+	background-image: url(../images/export.png);
+}
+
+#exportscene{
+	background-image: url(../images/save.png);
+	margin-right: 90px;
+}
+
+#export-json {
+	position: absolute;
+	width: 95%;
+	height: 95%;
+}
+
+#import-json {
+	padding: 20px 30px 10px 20px;
+	textarea {
+		width: 236px;
+		height: 210px
+	}
+}
+
+textarea {
+	width: 360px;
+	height: 400px
+}
+
+
+.nm-divider {
+	width: 1px;
+	height: 26px;
+	display: inline-block;
+	margin: 0 10px;
+	float: left
+}
+
+/******* main ******/
+
+.main {
+	position: absolute;
+	left: 0px;
+	right: 0px;
+	top: 80px;
+	bottom: 0px;
+}
+
+/*********nav *********/
+
+.nav {
+	position: absolute;
+	margin: 0 auto;
+	width: 830px;
+	height: 170px;
+	z-index: 9999;
+	border-radius: 5px;
+	top: 100px;
+	left: 300px;
+	padding: 20px 50px;
+	display: none;
+	ul li {
+		float: left;
+		a {
+			display: block;
+			text-align: center;
+			width: 165px;
+			font-size: 14px;
+			text-decoration: none
+		}
+	}
+
+}
+
+.mn-nav {
+	width: 100px;
+	height: 100px;
+	border-radius: 2px;
+	margin: 30px 30px 10px 30px;
+}
+
+.mask {
+	top: 0px;
+	left: 0px;
+	position: absolute;
+	opacity: 0.50;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	z-index: 1000
+}
+
+
+/***resetStyle****/
+
+.ui-widget-content{
+	background: $navBackground;
+	border: 1px solid $navBorderColor;
+	color: $navColor;
+}
+
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active{
+	background: $navBackground;
+	background-image: url(../images/cilck.png);
+	color: $navColor;
+	border: 2px solid $navBorderColor;
+	font-size: 20px;
+	font-weight: 100;
+}
+
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default{
+	background: $navBackground;
+	color: $navColor;
+	border: 2px solid $navBorderColor;
+	font-size: 20px;
+	font-weight: 100;
+}
+
+.ui-state-default .ui-icon{
+	background-image: url(images/ui-icons_228ef1_256x240.png) ; 
+}
+
+.font{
+	font-size: 17px;
+	color: $navColor;
+}
+
+#import123{
+	position: absolute;
+	top: 2px;
+    right: 255px;
+}
+
+#export123{
+	position: absolute;
+	top: 2px;
+    right: 145px;
+}
+
+#save123{
+	position: absolute;
+	top: 2px;
+    right: 45px;
+}
+
+
+.propertyItem{
+	color: $propertyColor ;
+	font-size: 16px ;
+}
+
+.line{
+	width: 90%;
+	height: 2px;
+	margin-top: 28px;
+}
+
+.titleLine{
+	width: 120px;
+	height: 2px;
+}
+
+.titleFont{
+	margin-left: 18px;
+}
+
+/********/
+
+
+	.reveal-modal {
+	display: none;
+	top: 150px;
+	left: 50%;
+	margin-left: -200px;
+	width: 300px;
+	background-color :$navBackground;
+	position: absolute;
+	z-index: 101;
+	padding: 30px 40px 34px;
+	color: $navColor;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	border: 1px solid $navColor;
+
+	}
+	 
+	 
+	.reveal-modal .close-reveal-modal {
+	font-size: 22px;
+	line-height: .5;
+	position: absolute;
+	top: 8px;
+	right: 11px;
+	color: $navColor;
+	text-shadow: 0 -1px 1px rbga(0,0,0,0.6);
+	font-weight: bold;
+	cursor: pointer;
+}
+
+
+
+
+
+
+
+#accordion-resizer {
+    position: absolute;
+    width: 200px;
+    height: 100%;
+    .mn-accordion {
+        padding: 10px 0px;
+    }
+}
+
+// #accordion-resizer .mn-accordion {
+//     padding: 10px 0px;
+// }
+
+.item-li {
+    float: left;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    width: 85px;
+    text-align: center;
+    img {
+        width: 64px;
+        height: 64px;
+        display: inline-block;
+        border: 1px solid $navBorderColor;
+        border-radius: 5px;
+    }
+    img:hover {
+        cursor: pointer;
+        background: $hoverBackground;
+    }
+}
+
+
+
+.item-label {
+    margin-top: 10px;
+}
+
+.network3d-view {
+    position: absolute;
+    left: 0;
+    box-sizing: border-box;
+    top: 0;
+}
+
+/*.right-content{box-shadow: 1px 0 5px #888; width: 0; position: absolute; height: 200px; right:0; top:10px; overflow: hidden; z-index: 2;background: #ECEFF2; margin-right: -300px;}*/
+
+.edit3d-container {
+    display: none;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-top: 1px solid lightgrey
+}
+
+#sheetView {
+    pointer-events: none;
+}
+
+.valueDiv {
+    pointer-events: auto;
+}
+
+.accordionPaneBox {
+    position: absolute;
+    width: 200px;
+    height: 100%;
+}
+
+.networkBox {
+    position: absolute;
+    top: 0px;
+    left: 200px;
+    right: 0px;
+    height: 100%;
+    z-index: 1;
+}
+
+/*.room-ruler {position: absolute;top: 0px;bottom: 0px;left: 200px;right: 0px;border-left: 1px solid #c0c0c0;overflow: hidden;}*/
+
+.edit2d-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-top: 1px solid lightgrey;
+}
+
+.editor-container {
+    position: absolute;
+}

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>场景编辑器</title>
+    <meta name="keywords" content="TWaver, TWaver 3D, 3D, editor, " />
+    <meta name="viewport" content="user-scalable=0">
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="./css/jquery-ui-1.10.4.custom.min.css">
+    <!-- <link rel="stylesheet" href="./css/twaver-doodle.css"> -->
+    <link rel="stylesheet" href="./css/style.css">
+    <style>
+        #top>.toolbar span.mn-toolbar{
+            overflow: hidden;
+        }
+
+        #top>.toolbar input.file-input {
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body >
+    <!-- header begin -->
+    <div id='top'>
+        <!-- <img src='./images/title.png' id='top-logo'> -->
+        <div>
+            <span></span>
+            <div class='header'></div>
+        </div>
+        <div id="toolbar" class="toolbar">
+
+            <!-- <span id="panModel" class="mn-toolbar mn-multi-select" title="框选模式"></span> -->
+        
+            <span id="importVsdx" class="mn-toolbar mn-import-vs" title="导入XML">
+               
+                <input type="file" id="import-xml" name="import-xml" class="file-input" value="1" placeholder="2" />
+                
+            </span> <span class="font" id="import123">导入</span>
+
+            <!-- <span id="importJson" class="mn-toolbar mn-import-json" title="导入JSON">
+                <input type="file" id="import-json" name="import-json" class="file-input" />
+                导出
+            </span> -->
+
+            <span id='export' class="mn-toolbar mn-export-json" title="导出JSON"></span><span class="font" id="export123">导出</span>
+            <span id='exportscene' class="mn-toolbar mn-save" title="保存场景"></span><span class="font" id="save123">保存</span>
+           
+        </div>
+    </div>
+    <!-- header end -->
+    <div class="main">
+        <div class="editor-container" style="height: 100%; width: 100%;">
+            <div class="accordionPaneBox"></div>
+            <div class="networkBox"></div>
+            <div class="propertySheetBox"></div>
+        </div>
+    </div>
+
+
+    <div id="myModal" class="reveal-modal">
+      
+            <h1>
+                数据保存成功
+            </h1>
+          
+            <p>
+                
+            </p>
+    <a class="close-reveal-modal">×</a>
+
+    <!-- <div class="main"></div> -->
+    <!-- footer begin -->
+    <!-- <div id='footer'>
+        <p class='footer-p'>
+            Copyright &copy; 2004-2016 Serva Software | 沪ICP备10200962号
+        </p>
+    </div> -->
+</body>
+<script src="./libs/jquery.js"></script>
+<script src="./libs/jquery.ba-resize.js"></script>
+<script src="./libs/jquery-ui-1.10.4.custom.min.js"></script>
+<script src="./models/models.js"></script>
+<script src="./libs/twaver.js"></script>
+<script src="./libs/twaver-hud.js"></script>
+<script src="./libs/my-hud-components.js"></script>
+<script src="./libs/license2D.js"></script>
+<script src="./js/register2DModel.js"></script>
+<script src="./js/MyCreateShapeNodeInteraction.js"></script>
+<script src="./js/myPromise.js"></script>
+<script src="./js/Utils.js"></script>
+<script src="./js/AccordionPane.js"></script>
+<script src="./js/PropertySheet.js"></script>
+<script src="./js/toolbar/RootPane.js"></script>
+<script src="./js/main.js"></script>
+<script src="./js/DragAndDrop.js"></script>
+<script src="./js/GridNetwork.js"></script>
+<script src="./js/NetworkAlign.js"></script>
+<script src="./js/NetworkDimension.js"></script>
+<script src="./js/Ruler.js"></script>
+<script src="./js/EditScene.js"></script>
+<script src="./js/Editor.js"></script>
+
+
+<script src="./sass/doodleStyle.js"></script>
+<script src="../topoStyle.js"></script>
+
+
+<script src="./js/interactions/EditInteraction.js"></script>
+
+<script src="./js/toolbar/ToolbarManager.js"></script>
+<script src="./js/toolbar/ImportXml.js"></script>
+<script src="./js/toolbar/ExportJson.js"></script>
+<script src="./js/toolbar/SaveScene.js"></script>
+
+ <!-- 查询数据显示页面 -->
+ <script src="./js/editor/LoadEditor.js"></script>
+
+</html>

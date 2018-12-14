@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>battery icon</title>
+  <style>
+    body {
+      background-image: url(../images/background.png);
+    }
+  </style>
+  <script src="../libs/twaver.js"></script>
+</head>
+
+<body>
+  <div id="networkDiv"></div>
+  <script>
+    var box = new twaver.ElementBox();
+    var network = new twaver.vector.Network(box);
+
+    document.getElementById("networkDiv").appendChild(network.getView());
+    network.adjustBounds({
+      x: 0, y: 0, width: 350, height: 500
+    })
+    network.setZoom(3)
+
+    var node = new twaver.Follower({
+      name: "node",
+      location: {
+        x: 150,
+        y: 250
+      }
+    })
+    box.add(node);
+
+    twaver.Util.registerImage('workState_icon', {
+      "w": 64,
+      "h": 64,
+      "scale": 1,
+      getInnnerColor: function(data){
+        var state = data.getClient("workState");
+        var color;
+        if(state === "working"){
+          color = "rgb(99, 202, 80)";
+        }else if(state === "pause"){
+          color = "rgb(255, 255, 0)";
+        }else if(state === "trouble"){
+          color = "rgb(246, 83, 73)";
+        }
+        return color;
+      },
+      "v": [
+        {
+          shape: 'draw',
+          draw: function (g, data, view) {
+            g.moveTo(-16, -20);
+            g.lineWidth = 3;
+            g.lineTo(16, -20);
+            g.arc(16, -16, 4, Math.PI * 1.5, Math.PI * 2, false);
+            g.lineTo(20, 16);
+            g.arc(16, 16, 4, 0, Math.PI * 0.5, false);
+            g.lineTo(7, 20);
+            g.lineTo(0, 32);
+            g.lineTo(-7, 20);
+            g.lineTo(-16, 20);
+            g.arc(-16, 16, 4, Math.PI * 0.5, Math.PI * 1, false);
+            g.lineTo(-20, -16);
+            g.arc(-16, -16, 4, Math.PI * 5, Math.PI * 1.5, false);
+            g.strokeStyle = "rgb(44,233,255)";
+            g.stroke();
+          }
+        },
+        {
+          shape: 'draw',
+          draw: function (g, data, view) {
+
+            g.lineWidth = 4;
+            g.arc(0, 0, 12, 0, Math.PI * 2, true);
+
+            g.strokeStyle = this.getInnnerColor(data);
+            g.stroke();
+          },
+        },
+        {
+          shape: 'draw',
+          draw: function (g, data, view) {
+            g.lineWidth = 4;
+            g.arc(0, 0,8.4, Math.PI * 0.05, Math.PI * 1.95, true);
+            g.strokeStyle = this.getInnnerColor(data);
+            g.stroke();
+          }
+        },
+        {
+          shape: 'draw',
+          draw: function (g, data, view) {
+            g.arc(0, 0,6.5, 0, Math.PI * 2, true);
+            g.fillStyle = this.getInnnerColor(data);
+            g.fill();
+          }
+        },
+      ]
+    });
+
+    node.setClient("workState", "working");
+    node.s("icons.names", "workState_icon");
+    node.s("icons.position", "top.top");
+
+    setInterval(function () {
+      switch(node.getClient("workState")){
+       case "working": node.setClient("workState", "pause"); break;
+       case "pause": node.setClient("workState", "trouble"); break;
+       case "trouble": node.setClient("workState", "working"); break;
+      }
+      
+    }, 1000);
+
+  </script>
+</body>
+
+</html>

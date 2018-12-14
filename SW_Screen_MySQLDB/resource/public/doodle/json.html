@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <title>测试</title>
+    <meta name="keywords" content="TWaver, TWaver 3D, 3D, editor, " />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="./css/jquery-ui-1.10.4.custom.min.css">
+    <link rel="stylesheet" href="./css/twaver-doodle.css">
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    
+</body>
+<script src="./libs/jquery.js"></script>
+<script src="./libs/jquery.ba-resize.js"></script>
+<script src="./libs/jquery-ui-1.10.4.custom.min.js"></script>
+<script src="./models/models.js"></script>
+<script src="./libs/twaver.js"></script>
+<script src="./js/register2DModel.js"></script>
+<script src="./js/MyCreateShapeNodeInteraction.js"></script>
+<script src="./js/Utils.js"></script>
+<script src="./js/AccordionPane.js"></script>
+<!-- <script src="./js/main.js"></script> -->
+<script src="./js/DragAndDrop.js"></script>
+<!-- <script src="./js/EditScene.js"></script> -->
+<!-- <script src="./js/Editor.js"></script>               -->
+<script src="./js/toolbar/ToolbarManager.js"></script>
+<script src="./js/toolbar/ImportXml.js"></script>
+<script src="./js/toolbar/ImportJson.js"></script>
+<script src="./js/toolbar/ExportJson.js"></script>
+<script src="./js/toolbar/SaveScene.js"></script>
+
+<button>提交数据</button>
+
+<script>
+    var data = [
+            {
+                "id": "PW01",
+                "path": [{ "x": 0, "y": 290 },{ "x": 1640, "y": 290 }],
+                "location": { "x": 0, "y": 0 },
+                "rotate": "0"
+            },
+            {
+                "id": "PW02",
+                "path": [{ "x": 953, "y": 0 }, { "x": 953, "y": 290 }],
+                "location": { "x": 0, "y": 0 },
+                "rotate": "0"
+            },
+            {
+                "id": "PW03",
+                "path": [{ "x": 1174, "y": 0 }, { "x": 1174, "y": 290 }],
+                "location": { "x": 0, "y": 0 },
+                "rotate": "0"
+            },
+            {
+                "id": "PW04",
+                "path": [{ "x": 1453, "y": 0 }, { "x": 1453, "y": 290 }],
+                "location":{ "x": 0, "y": 0 },
+                "rotate": "0"
+            }
+        ]
+    
+
+   
+        $.ajax({
+            type: 'POST',
+            url: 'http://127.0.0.1:8080/api/editor/add',
+            data: JSON.stringify(data),
+            // processData:false,
+            contentType: 'application/json; charset=UTF-8',
+            success: function(datas){
+                console.log(datas);
+            },
+            error:function(err){
+                // console.log(err)
+            }
+        });
+    
+</script>
+
+</html>

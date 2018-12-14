@@ -1,0 +1,161 @@
+
+//第二屏搜索框字体颜色
+$secondSearchColor: rgb(59, 226, 255);
+//第二屏搜素框内字体颜色
+$secondPlaceholder: rgba(137, 217, 255, 0.6);
+//第二屏搜索框边框颜色
+$secondBorder: rgba(31, 75, 118, 1);
+
+
+body {
+  zoom: 1
+}
+
+/*详细状态面板箭头样式开始*/
+
+.arrow {
+  width: 50px;
+}
+
+.arrow:hover {
+  transform: translateY(2px);
+  cursor: pointer;
+}
+
+/*详细状态面板箭头样式结束*/
+
+/*第二页面板关闭按钮开始*/
+
+.close:hover {
+  transform: translateY(2px);
+  cursor: pointer;
+}
+
+/*第二页面板关闭按钮结束*/
+
+/*第二页checkBox样式开始*/
+
+.header {
+  margin-top: 12px;
+  margin-left: 22px;
+  font-size: 25px;
+  color: $secondSearchColor;
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: justify;
+  text-align-last: justify;
+  line-height: 40px;
+  height: 40px;
+  width: 155px;
+  background-image: url(../images/searchImg/filterBg.png);
+  background-size: 100% 100%;
+}
+
+.searchDiv {
+  width: 12%;
+  padding-top: 14px;
+  padding-left: 22px;
+  font-size: 20px;
+  float: left;
+}
+
+.filterDiv {
+  padding-left: 50px;
+  width: 81%;
+  padding-top: 10px;
+  float: left;
+  font-size: 17px;
+  color: $secondSearchColor;
+}
+
+.item {
+  font-size: 15px;
+  float: left;
+  text-align: center;
+  padding-top: 4px;
+  margin: 5px;
+  height: 25px;
+  width: 120px;
+  background-image: url(../images/searchImg/background01.png);
+  background-size: 100% 100%;
+}
+
+.button {
+  font-size: 15px;
+  float: right;
+  margin-right: 52px;
+  padding-top: 8px;
+  text-align: center;
+  height: 25px;
+  width: 120px;
+  background-image: url(../images/searchImg/filterBg.png);
+  background-size: 100% 100%;
+}
+
+.button:hover {
+  transform: translateY(2px);
+  cursor: pointer;
+}
+
+.tableHeader {
+  top: 155px !important;
+  height: 80px !important;
+}
+
+.tableBody {
+  top: 215px !important;
+}
+
+/* 修改placeholder的颜色 */
+
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+  /* WebKit browsers */
+  color: $secondPlaceholder;
+}
+
+input:-moz-placeholder,
+textarea:-moz-placeholder {
+  /* Mozilla Firefox 4 to 18 */
+  color: $secondPlaceholder;
+}
+
+input::-moz-placeholder,
+textarea::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  color: $secondPlaceholder;
+}
+
+input:-ms-input-placeholder,
+textarea:-ms-input-placeholder {
+  /* Internet Explorer 10+ */
+  color: $secondPlaceholder;
+}
+
+.searchDiv #in {
+  width: 89%;
+  height: 30px;
+  outline: none;
+  background: transparent;
+  border: 2px solid $secondBorder;
+  color: $secondPlaceholder;
+  font-size: 18px;
+  padding-left: 1%;
+  padding-right: 4%;
+}
+
+.searchDiv .btn_search {
+  width: 15%;
+  height: 24px;
+  position: relative;
+  top: -27px;
+  left: 75%;
+  border: none;
+  outline: none;
+  background: transparent;
+  cursor: pointer;
+  background-image: url(../images/searchImg/btn.png);
+  background-repeat: no-repeat;
+}
+
+/*第二页checkBox样式结束 */

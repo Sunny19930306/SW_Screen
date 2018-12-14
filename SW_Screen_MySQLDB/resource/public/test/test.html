@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>table</title>
+</head>
+<body>
+    <script src="../libs/twaver.js"></script>
+    <script>
+        !function(twaver,undefined,window){
+            var box = new twaver.ElementBox(); 
+            var network = new twaver.vector.Network(box); 
+            var table = new twaver.controls.Table(box);
+             function init() { initTable(); initDataBox(); } 
+             function initTable(){ 
+                var tablePane = new twaver.controls.TablePane(table);
+                 var tableDom = tablePane.getView(); 
+                 tableDom.style.width = "100%";
+                  tableDom.style.height = "100%"; 
+                  document.body.appendChild(tableDom);
+                   window.onresize = function(){
+                        tablePane.invalidate();
+                     } 
+                     createColumn(table,'Name','name','accessor','string'); 
+                     createColumn(table,'Id','id','accessor','string');
+                      createColumn(table,'Icon','icon','accessor'); } 
+                      function initNetwork() {
+                           var view = network.getView(); 
+                           document.body.appendChild(view);
+                            network.adjustBounds({x: 0, y: 0, width: 1300, height: 600}); } 
+                            function initDataBox() {
+                                 var from = new twaver.Node({ name: 'from', location: { x: 100, y: 100 } }); 
+                                 box.add(from);
+                                  var to = new twaver.Node({ name: 'to', location: { x: 220, y: 160 } }); 
+                                  box.add(to); 
+                                  var link = new twaver.Link(from, to); 
+                                  box.add(link);
+                                   var i=100; while(i-- > 0){
+                var data = new twaver.Node();
+                data.setName("TWaver-"+i);
+                data.setParent(from);
+ 
+                box.add(data);
+            }
+ 
+        }
+ 
+        function createColumn(table,name,propetyName,propertyType,valueType){
+            var column = new twaver.Column(name);
+            column.setName(name);
+            column.setPropertyName(propetyName);
+            column.setPropertyType(propertyType);
+            if(valueType){
+                column.setValueType(valueType);
+            }
+            table.getColumnBox().add(column);
+            return column;
+        }
+        }(twaver,undefined,window)
+    </script>
+</body>
+</html>

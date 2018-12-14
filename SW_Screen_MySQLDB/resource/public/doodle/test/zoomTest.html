@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta http-equiv="pragma" content="no-cache" charset="UTF-8">
+    <script type="text/javascript" src="../libs/twaver.js"></script>
+    <script type="text/javascript">
+        function init() {
+            twaver.Util.registerImage('chip_body', {
+                w: 100,
+                h: 300,
+                v: [
+                    {
+                        shape: 'rect',
+                        rect: [ -50, -150, 100, 300],
+                        lineColor: twaver.Colors.blue_dark,
+                        lineWidth: 10,
+                    },
+                ]
+            });
+ 
+            twaver.Util.registerImage('chip_foot', {
+                w: 20,
+                h: 20,
+                v: [
+                    {
+                        shape: 'circle',
+                        cx: 0,
+                        cy: 0,
+                        r: 10,
+                        lineColor: 'black',
+                        fill: twaver.Colors.orange_light,
+                        lineWidth: 0.3,
+                    },
+                ]
+            });
+ 
+            var box = new twaver.ElementBox();
+            var network = new twaver.vector.Network(box);
+            document.body.appendChild(network.getView());
+            network.adjustBounds({x: 0, y: 0, width: 1200, height: 700});
+            var zoomManager = new twaver.vector.LogicalZoomManager(network, true);
+            network.setZoomManager(zoomManager);
+            zoomManager.getSizeZoom = function (ui) {
+                if (ui) {
+                    var element = ui.getElement();
+                    var zoom = this.getZoom();
+                    if (element.getClient('zoom') === false && zoom < 0.41) {
+                        return 0.41;
+                    }
+                }
+                return zoom;
+            };
+ 
+            network.setEditInteractions();
+            var body = new twaver.Node();
+            body.setImage('chip_body');
+            body.setLocation(160, 100);
+            box.add(body);
+ 
+            function createNode(box, x, y, zoom) {
+                var node = new twaver.Follower();
+                node.setImage('chip_foot');
+                node.setClient('zoom', zoom);
+                node.setHost(body);
+                node.setLocation(x, y);
+                box.add(node);
+                return node;
+            }
+ 
+            for (var i = 0; i < 10; i++) {
+                var left = createNode(box, 150, 130 + i * 22, true);
+                var right = createNode(box, 250, 130 + i * 22, false);
+                var link = new twaver.Link(left, right);
+                link.setStyle('link.width', 2);
+                link.setStyle('link.color', twaver.Colors.green_light);
+                box.add(link);
+            }
+        }
+ 
+    </script>
+ 
+</head>
+<body onload="init()">
+</body>
+</html>

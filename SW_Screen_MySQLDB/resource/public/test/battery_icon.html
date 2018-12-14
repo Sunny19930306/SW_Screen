@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>battery icon</title>
+  <style>
+    body {
+      background-image: url(../images/background.png);
+    }
+  </style>
+  <script src="../libs/twaver.js"></script>
+</head>
+
+<body>
+  <div id="networkDiv"></div>
+  <script>
+    var box = new twaver.ElementBox();
+    var network = new twaver.vector.Network(box);
+
+    document.getElementById("networkDiv").appendChild(network.getView());
+    network.adjustBounds({
+      x: 0, y: 0, width: 350, height: 500
+    })
+    network.setZoom(3)
+
+    var node = new twaver.Node({
+      name: "node",
+      location: {
+        x: 150,
+        y: 250
+      }
+    })
+    box.add(node);
+
+    twaver.Util.registerImage('icon_battery', {
+      "w": 48,
+      "h": 24,
+      "scale": 1,
+      getPercent: function (data) {
+        return data.getClient("percent");
+      },
+      getFillColor: function (data) {
+        var percent = this.getPercent(data);
+        var fillColor;
+        if (percent >= 0 && percent <= 20) {
+          fillColor = "#FF8888";
+        } else if (percent > 20 && percent <= 60) {
+          fillColor = "rgb(255, 248, 198)";
+        } else {
+          fillColor = "rgb(183, 248, 255)";
+        }
+        return fillColor;
+      },
+      getGradientColor: function (data) {
+        var percent = this.getPercent(data);
+        var gradientColor;
+        if (percent >= 0 && percent <= 20) {
+          gradientColor = "#F85349";
+        } else if (percent > 20 && percent <= 60) {
+          gradientColor = "rgb(255, 255, 0)";
+        } else {
+          gradientColor = "rgb(125, 206, 255)";
+        }
+        return gradientColor;
+      },
+      getPercentText: function (data) {
+        var text = this.getPercent(data)
+        text += "%";
+
+        return text;
+      },
+      getNameText: function (data) {
+        return "W36";
+      },
+      getXValue: function (data) {
+        return 1 + 0.01 * 10 * this.getPercent(data) - 6;
+      },
+      getWValue: function (data) {
+        return 10 - 0.01 * 10 * this.getPercent(data);
+      },
+      "v": [
+        // {
+        //   "shape": "rect",
+        //   "x": -6,
+        //   "y": -3,
+        //   "w": 12,
+        //   "h": 6,
+        //   "r": [1, 1, 1, 1],
+        //   "fill": '<%= this.getFillColor(data) %>',
+        //   gradientColor: '<%= this.getGradientColor(data) %>',
+        //   gradient: 'linear.north',
+        // },
+        // {
+        //   "shape": "rect",
+        //   "x": '<%= this.getXValue(data) %>',
+        //   "y": 1 - 3,
+        //   "w": '<%= this.getWValue(data) %>',
+        //   "h": 4,
+        //   "r": [0, 1, 0, 1],
+        //   "fill": "#fff",
+        // },
+        {
+          "shape": "rect",
+          "x": 11.8 - 6,
+          "y": 1 - 3,
+          "w": 2,
+          "h": 4,
+          "r": [0.5, 1, 0.5, 1],
+          "fill": '<%= this.getFillColor(data) %>',
+          gradientColor: '<%= this.getGradientColor(data) %>',
+          gradient: 'linear.north',
+        },
+        {
+          "shape": "text",
+          "text": '<%= this.getPercentText(data) %>',
+          "font": "6px arial",
+          textBaseline: 'middle',
+          "x": 21 - 6,
+          "y": 3 - 3,
+          fill: '<%= this.getFillColor(data) %>',
+          gradientColor: '<%= this.getGradientColor(data) %>',
+          gradient: 'linear.north',
+        },
+        {
+          "shape": "line",
+          p1: { x: -25, y: -3 },
+          p2: { x: -13, y: -3 },
+          line: {
+            width: 0.5,
+            color: 'green',
+            dash: [1, 1],
+            dashOffset: 1
+          },
+        },
+        {
+          "shape": "line",
+          p1: { x: -13, y: -3 },
+          p2: { x: -8, y: 4 },
+          line: {
+            width: 0.5,
+            color: 'green',
+            dash: [1, 1],
+            dashOffset: 1
+          },
+        },
+        {
+          "shape": "line",
+          p1: { x: -8, y: 4 },
+          p2: { x: 20, y: 4 },
+          line: {
+            width: 0.5,
+            color: 'green',
+            dash: [1, 1],
+            dashOffset: 1
+          },
+        },
+        {
+          "shape": "text",
+          "text": '<%= this.getNameText(data) %>',
+          "font": "6px arial",
+          textBaseline: 'middle',
+          "x": -20,
+          "y": 1.5,
+          fill: "rgb(125, 206, 255)",
+        },
+        {
+          shape: 'draw',
+          draw: function (g, data, view) {
+            g.moveTo(-5, -3);
+            g.lineTo(5, -3);
+            g.arc(5, -2, 1, Math.PI * 1.5, Math.PI * 2, false);
+            g.lineTo(6, -2);
+            g.lineTo(6, 2);
+            g.arc(5, 2, 1, 0, Math.PI * 0.5, false);
+            g.lineTo(5, 3);
+            g.lineTo(-5, 3);
+            g.arc(-5, 2, 1, Math.PI * 0.5, Math.PI * 1, false);
+            g.lineTo(-6, 2);
+            g.lineTo(-6, -2);
+            g.arc(-5, -2, 1, Math.PI * 5, Math.PI * 1.5, false);
+
+            g.moveTo(5, 2);
+            g.lineTo(5, -2);
+            var x = this.getPercent(data) / 10 - 5;
+            g.lineTo(x, -2);
+            g.lineTo(x, 2);
+            g.lineTo(5, 2);
+
+            var grd = g.createLinearGradient(-5, -3, -5, 3);
+            grd.addColorStop(0, this.getGradientColor(data));
+            grd.addColorStop(1, this.getFillColor(data));
+
+            g.fillStyle = grd;
+            g.fill();
+          }
+        },
+      ]
+    });
+    node.setClient("percent", 0);
+    node.s("icons.names", "icon_battery");
+    node.s("icons.position", "top.top");
+
+    // var percent = 1;
+    setInterval(function () {
+      node.setClient("percent", node.getClient("percent") + 1 > 100 ? 0 : node.getClient("percent") + 1);
+    }, 200);
+
+    function delayCallback(percent) {
+      if (percent > 0 && percent <= 20) {
+        var fillColor = "#FF8888";
+        var gradientColor = "#F85349";
+      } else if (percent > 20 && percent <= 60) {
+        var fillColor = "rgb(255, 248, 198)";
+        var gradientColor = "rgb(255, 255, 0)";
+      } else {
+        var fillColor = "rgb(183, 248, 255)";
+        var gradientColor = "rgb(125, 206, 255)";
+      }
+      twaver.Util.registerImage('icon_battery', {
+        "w": 32,
+        "h": 16,
+        "scale": 2,
+        "origin": {
+          "x": 0,
+          "y": 0
+        },
+        "v": [
+          {
+            "shape": "rect",
+            "x": 0,
+            "y": 0,
+            "w": 12,
+            "h": 6,
+            "r": [1, 1, 1, 1],
+            "fill": fillColor,
+            gradient: {
+              type: 'linear.north',
+              color: gradientColor
+            },
+
+          },
+          {
+            "shape": "rect",
+            "x": 1 + 0.01 * 10 * percent,
+            "y": 1,
+            "w": 10 - 0.01 * 10 * percent,
+            "h": 4,
+            "r": [0, 1, 0, 1],
+            "fill": "rgb(15, 34, 49)",
+
+          },
+          {
+            "shape": "rect",
+            "x": 11.8,
+            "y": 1,
+            "w": 2,
+            "h": 4,
+            "r": [0.5, 1, 0.5, 1],
+            "fill": fillColor,
+            gradient: {
+              type: 'linear.north',
+              color: gradientColor
+            },
+
+          },
+          {
+            "shape": "text",
+            "text": percent + "%",
+            "font": "6px arial",
+            textBaseline: 'middle',
+            "x": 21,
+            "y": 3,
+            fill: fillColor,
+            gradient: {
+              type: 'linear.north',
+              color: gradientColor
+            },
+
+          }
+        ]
+      });
+      node.s("icons.names", "icon_battery");
+      node.s("icons.position", "top");
+
+      percent++;
+      if (percent > 100) {
+        percent = 1;
+      }
+      return percent;
+    }
+
+    twaver.Util.registerImage('icon_battery1', {
+      "w": 32,
+      "h": 16,
+      "scale": 1,
+      "origin": {
+        "x": 0,
+        "y": 0
+      },
+      "v": [
+        {
+          "shape": "rect",
+          "x": 0,
+          "y": 0,
+          "w": 12,
+          "h": 6,
+          "r": [1, 1, 1, 1],
+          "line": {
+            width: 1,
+            color: "#FF8888",
+            gradient: 'linear.north',
+            gradientColor: "#F85349",
+          },
+          "state": "state1",
+        },
+        {
+          "shape": "rect",
+          "x": 12.4,
+          "y": 1,
+          "w": 2,
+          "h": 4,
+          "r": [0.5, 1, 0.5, 1],
+          "fill": "#FF8888",
+          gradient: {
+            type: 'linear.north',
+            color: '#F85349'
+          },
+          "state": "state1"
+        },
+        {
+          "shape": "text",
+          "text": "10%",
+          "font": "6px arial",
+          textBaseline: 'middle',
+          "x": 21,
+          "y": 3,
+          fill: "#FF8888",
+          gradient: {
+            type: 'linear.north',
+            color: '#F85349'
+          },
+          "state": "state1"
+        },
+        {
+          "shape": "rect",
+          x: 0.5,
+          y: 0.5,
+          w: 2,
+          h: 6,
+          gradient: {
+            type: 'linear.north',
+            color: '#F85349'
+          },
+          "fill": "#FF8888",
+          "state": "state1"
+        },
+        {
+          "shape": "rect",
+          "x": 0,
+          "y": 0,
+          "w": 12,
+          "h": 6,
+          "r": [1, 1, 1, 1],
+          "line": {
+            width: 1,
+            color: "yellow",
+          },
+          "state": "state2",
+
+        },
+        {
+          "shape": "rect",
+          "x": 12,
+          "y": 1,
+          "w": 2,
+          "h": 4,
+          "r": [0.5, 1, 0.5, 1],
+          "fill": "yellow",
+          // gradient: {
+          //   type: 'linear.north',
+          //   color: '#F85349'
+          // },
+          "state": "state2"
+        },
+        {
+          "shape": "text",
+          "text": "45%",
+          "font": "6px arial",
+          textBaseline: 'middle',
+          "x": 21,
+          "y": 3,
+          fill: "yellow",
+          "state": "state2"
+        },
+        {
+          "shape": "rect",
+          x: 0,
+          y: 0,
+          w: 12 * 0.45,
+          h: 6,
+          "fill": "yellow",
+          "state": "state2"
+        },
+        {
+          "shape": "rect",
+          "x": 0,
+          "y": 0,
+          "w": 12,
+          "h": 6,
+          "r": [1, 1, 1, 1],
+          "line": {
+            width: 1,
+            color: "rgb(183, 248, 255)",
+            gradient: {
+              type: 'linear.north',
+              color: 'rgb(125, 206, 255)'
+            },
+          },
+          "state": "state3",
+
+        },
+        {
+          "shape": "rect",
+          "x": 12,
+          "y": 1,
+          "w": 2,
+          "h": 4,
+          "r": [0.5, 1, 0.5, 1],
+          "fill": "rgb(183, 248, 255)",
+          gradient: {
+            type: 'linear.north',
+            color: 'rgb(125, 206, 255)'
+          },
+          "state": "state3"
+        },
+        {
+          "shape": "text",
+          "text": "75%",
+          "font": "6px arial",
+          textBaseline: 'middle',
+          "x": 21,
+          "y": 3,
+          fill: "rgb(183, 248, 255)",
+          gradient: {
+            type: 'linear.north',
+            color: 'rgb(125, 206, 255)'
+          },
+          "state": "state3"
+        },
+        {
+          "shape": "rect",
+          x: 0,
+          y: 0,
+          w: 12 * 0.75,
+          h: 6,
+          "fill": "rgb(183, 248, 255)",
+          gradient: {
+            type: 'linear.north',
+            color: 'rgb(125, 206, 255)'
+          },
+          "state": "state3"
+        },
+        {
+          "shape": "path",
+          "data": "6.718,8.102 5,8.102 5,6.102 3.281,9.898 5,9.898 5,11.898 z",
+          "fill": "#ED6C00",
+          "state": ["charge"]
+        }
+      ]
+    });
+
+  </script>
+</body>
+
+</html>

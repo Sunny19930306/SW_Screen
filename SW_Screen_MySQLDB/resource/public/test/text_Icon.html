@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>battery icon</title>
+  <style>
+    body {
+      background-image: url(../images/background.png);
+    }
+  </style>
+  <script src="../libs/twaver.js"></script>
+</head>
+
+<body>
+  <div id="networkDiv"></div>
+  <script>
+    var box = new twaver.ElementBox();
+    var network = new twaver.vector.Network(box);
+
+    document.getElementById("networkDiv").appendChild(network.getView());
+    network.adjustBounds({
+      x: 0, y: 0, width: 960, height: 550
+    })
+
+    var node = new twaver.Follower({
+      name: "node",
+      location: {
+        x: 150,
+        y: 250
+      }
+    })
+    box.add(node);
+
+    twaver.Util.registerImage('text_icon', {
+      "w": 256,
+      "h": 128,
+      "scale": 1,
+      cache: false,
+      getDefaultDatas: function (node) {
+        return node.getClient("data");
+      },
+      "v": [
+        {
+          shape: 'draw',
+          draw: function (g, data, view) {
+            var data = this.getDefaultDatas(data);
+
+            var text = data.text || "默认文字";
+            var color = data.color || "rgb(125, 206, 255)";
+            var gradientColor = data.gradientColor || { middleColor: "rgb(159, 250, 255)", edgeColor: "rgb(31, 75, 118,0.75)" };
+            var sign = data.sign || 1;
+
+            g.beginPath();
+            g.moveTo(-32, -12);
+            g.lineTo(32, -12);
+            g.closePath();
+            g.lineWidth = 1;
+            var grd = g.createLinearGradient(-32, 0, 32, 0);
+            grd.addColorStop(0, gradientColor.edgeColor);
+            grd.addColorStop(0.5, gradientColor.middleColor);
+            grd.addColorStop(1, gradientColor.edgeColor);
+            g.strokeStyle = grd;
+            g.stroke();
+
+            g.beginPath();
+            g.moveTo(32*sign, -12);
+            g.lineTo(48*sign, 0);
+            g.closePath();
+            var grd2 = g.createLinearGradient(32*sign, -12, 48*sign, 0);
+            grd2.addColorStop(0, gradientColor.edgeColor);
+            grd2.addColorStop(0.9, gradientColor.edgeColor);
+            g.strokeStyle = grd2;
+            g.stroke();
+
+            g.beginPath();
+            g.arc(48*sign, 0, 2.2 * Math.sqrt(2), 0, 2 * Math.PI, false);
+            g.arc(48*sign, 0, 1.5 * Math.sqrt(2), 0, 2 * Math.PI, true);
+            g.arc(48*sign, 0, 0.8 * Math.sqrt(2), 0, 2 * Math.PI, false);
+            g.closePath();
+            g.fillStyle = "rgb(136, 241, 255)";
+            g.fill();
+
+            g.font = "14px Arial";
+            // 显示不同的 textAlign 值
+            g.textAlign = "center";
+            g.fillStyle = "rgb(59,224,255)";
+            g.fillText(text, 0, 0);
+
+          }
+        },
+      ]
+    });
+
+    node.setClient("data", {
+      scale: 10,
+      text: "电池电量",
+      sign: -1,
+    });
+    node.s("icons.names", "text_icon");
+    node.s("icons.position", "top.top");
+    
+    setInterval(function(){
+      var data = node.getClient("data");
+      data.sign *= -1;
+      node.setClient("data", data);
+    }, 10)
+
+  </script>
+</body>
+
+</html>

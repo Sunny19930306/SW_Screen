@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>拓扑图重写创建方法</title>
+</head>
+
+<body>
+  <button id="change">
+    切换
+  </button>
+  <script src="../libs/twaver.js"></script>
+  <script>
+    ! function (window, twaver, undefined) {
+
+
+      var box = new twaver.ElementBox();
+      window.box = box;
+      var network = new twaver.vector.Network(box);
+      window.network = network
+
+      function init() {
+        document.body.appendChild(network.getView());
+        network.adjustBounds({
+          x: 100,
+          y: 100,
+          width: 500,
+          height: 500
+        });
+        // network.setInteractions();
+        network.setWheelToZoom(false);
+
+
+
+        var shapeNode1 = new twaver.ShapeNode({
+          name: 'ShapeNode'
+        });
+        shapeNode1.s('fill.color', '#61b6d8');
+        shapeNode1.addPoint({
+          x: 30,
+          y: 10
+        });
+        shapeNode1.addPoint({
+          x: 80,
+          y: 10
+        });
+        shapeNode1.addPoint({
+          x: 100,
+          y: 90
+        });
+        shapeNode1.addPoint({
+          x: 10,
+          y: 90
+        });
+        shapeNode1.setClient('select', 'none');
+        // console.log(shapeNode1.getLocation()); 
+        shapeNode1.setStyle('label.maxlength', 50);
+        shapeNode1.setStyle('label.linespacing', 100);
+        shapeNode1.setStyle('label.position', 'center');
+        // shapeNode1.isSelected(true);
+        box.add(shapeNode1);
+
+        // network.getLabel = function(element){
+        //   console.log(element)
+        // }
+        twaver.Util.registerImage('dpi','./dpi.png');
+
+        var div = document.createElement('div');
+        //span.innerHTML= '';
+        // span.url = './dpi.png';
+        div.innerHTML = '123';
+        var node2 = new twaver.HTMLNode({
+          name: div,
+          location: {
+            x: 100,
+            y: 300
+          }
+        });
+        node2.setSize({
+          width: 50,
+          height: 20
+        });
+        // node2.setName('hello');
+        node2.setStyle('label.position', 'center');
+        node2.setVisible(false);
+
+        box.add(node2);
+
+        var node1 = new twaver.HTMLNode({
+          location: {
+            x: 400,
+            y: 800
+          }
+        });
+        node1.s('attachment.label.style', 'html');
+        node1.s('attachment.alarm.style', 'html');
+        // node1.setName('&lt;span&gt;123&lt;/span&gt;')
+        // node1.setStyle('label.position', 'center');
+
+        // node1.setStyle('label.padding', 80);
+        // node1.setStyle('label.padding.top',0);
+        // node1.setStyle('label.padding.bottom',80);
+        // node1.setStyle('label.padding.right',80);
+        // node1.s('label.padding.left',80);
+
+        //设置label位置
+        // node1.s('label.fill','true')
+        // node1.setStyle('label.fill.color','#00ff00');
+        // node1.setStyle('label.position','center');
+        // node1.setName2('123');
+        // node1.s('label2.fill','true')
+        // node1.setStyle('label2.fill.color','#00ff00');
+        // node1.setStyle('label2.position','center');
+        // node1.s('label.font','30px arial center')
+        // node1.s('label.yoffset',0);
+        box.add(node1);
+
+        var node3 = new twaver.Node('123');
+        // node3.setName2('world');
+        // node3.setImage('dpi');
+        node3.setName('hello')
+
+        // node3.setAngle('0');
+        node3.setStyle('label.position', 'center');
+        node3.setStyle('label.alpha', 0);
+        // node3.setStyle('label.corner.radius',0);
+        // node3.setStyle('label.xoffset', -20);
+        // node3.setStyle('label.yoffset',-2)
+        node3.setStyle('label.outline.width', 1);
+        node3.setStyle('label.color', 'rgba(0,255,0,0)');
+        // node3.setStyle('label.fill','true');
+        node3.setStyle('label.font', '14px');
+
+
+        console.log(node3.getName());
+
+        // node3.setStyle('label2.position', 'center');
+        // node3.setStyle('label2.outline.color', 'red');
+        // node3.setStyle('label2.outline.width', 1);
+        // node3.setStyle('label2.xoffset', 20);
+        // node3.setStyle('label2.color', 'black');
+        // node3.setStyle('label2.font', '14px');
+        box.add(node3);
+
+        //直接添加shapenode
+
+        var temp = network.getInteractions();
+
+        var change = document.getElementById('change');
+        change.addEventListener('click', function () {
+          var datas = box.getDatas();
+          console.log(datas);
+          datas.forEach(element => {
+            if (element instanceof twaver.Node) {
+              element.setStyle('label.color', 'rgba(0,255,0,1)')
+            }
+          });
+        })
+
+        // console.log(network.getInteractions());
+        //使用创建shapenode
+        var button = document.createElement('button');
+        document.body.appendChild(button);
+        button.innerHTML = '创建连线';
+        button.style = "background-color:#00ff00";
+
+        button.addEventListener('click', function () {
+          network.setCreateShapeNodeInteractions( //重写setCreateShapeNodeInteractions中的方法，会出现无法结束创建的情况
+                function (t) {
+                    var node = new twaver.ShapeNode();
+                    for (var i = 0; i < t._as.length; i++) {
+                        node.addPoint({
+                            x: t._as[i].x,
+                            y: t._as[i].y
+                        });
+                    }
+                    node.setName('hello');
+                    node.setStyle('label.position', 'center');
+                    // node.s('fill.color', '#61b6d8');
+                    box.add(node);
+                    network.setInteractions(network.getInteractions());
+                }
+            );
+        })
+
+        //得到选择模式
+        var selected = network.getSelectionModel();
+        var obj = box.getDataById('123');
+
+        // box.getSelectionModel().setSelection(node1);
+        selected.setSelection(obj);
+
+
+        selected.removeSelection(obj);
+        //选择过滤器
+        //   selected.setFilterFunction(function(data){
+        //       //判断节点的种类
+        //       if(data instanceof twaver.ShapeNode){
+        //           return false;
+        //       }else{
+        //           return true;
+        //       }
+        // })
+
+      }
+
+      window.onload = init();
+      var n1 = document.getElementById('n1')
+      // n1.onmousewheel = null;
+      // .onmousewheel = null;
+    }(window, twaver, undefined)
+  </script>
+
+</body>
+
+</html>

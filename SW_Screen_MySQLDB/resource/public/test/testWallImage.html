@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>battery icon</title>
+  <style>
+    body {
+      background-color: burlywood;
+    }
+  </style>
+  <script src="../libs/twaver.js"></script>
+</head>
+
+<body>
+  <div id="networkDiv"></div>
+  <script>
+    var box = new twaver.ElementBox();
+    var network = new twaver.vector.Network(box);
+
+    document.getElementById("networkDiv").appendChild(network.getView());
+    network.adjustBounds({
+      x: 0, y: 0, width: document.documentElement.clientWidth, height: document.documentElement.clientHeight
+    })
+
+    var node1 = new twaver.Node({
+      name: "node1",
+    })
+    box.add(node1);
+
+    twaver.Util.registerImage('wallpath', {
+      clip: true,
+      w: 100,
+      h: 100,
+      getPath: function (data) {
+        return data.getClient("path");
+      },
+      v: [
+        {
+          shape: 'path',
+          data: '<%= this.getPath(data) %>',
+          lineColor: "red",
+          lineWidth: 1
+        }
+      ]
+    });
+    
+    node1.setImage("wallpath");
+    node1.setClient("path", [{ x: 0, y: 0 }, { x: 100, y: 0 }, { x: 100, y: 100 }, { x: 0, y: 100 }, { x: 0, y: 0 }]);
+    // node1.s("label.xoffset",100);
+    // node1.s("label.yoffset", 100);
+    
+    
+    var node2 = new twaver.Node({
+      name: "node2",
+    })
+    box.add(node2);
+    node2.s("label.color", "red");
+    
+    node2.setImage("partitionWallPath");
+    node2.setClient("path", [{ x: 0, y: 0 }, { x: 1000, y: 0 }, { x: 1000, y: 1000 }, { x: 0, y: 1000 }, { x: 0, y: 0 }]);
+    
+    twaver.Util.registerImage('partitionWallPath', {
+      getPath: function (data) {
+        return data.getClient("path");
+      },
+      w: 1000,
+      h: 1000,
+      clip: true,
+      v: [
+        {
+          shape: 'path',
+          data: '<%= this.getPath(data) %>',
+          lineColor: "red",
+          lineWidth: 1
+        },
+      ]
+    });
+
+  </script>
+</body>
+
+</html>
